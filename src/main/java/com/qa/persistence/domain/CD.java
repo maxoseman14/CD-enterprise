@@ -1,13 +1,15 @@
 package com.qa.persistence.domain;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.Column;
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -17,11 +19,17 @@ public class CD {
 	@Id
 	private Long id;
 	private String title;
-	private ArrayList<String> artist = new ArrayList<String>();
+	
+	@OneToMany(
+			cascade = CascadeType.ALL,
+			orphanRemoval = true,
+			fetch = FetchType.EAGER
+			)
+	private Collection<Artist> artist;
 	
 	public CD () {}
 	
-	public CD(String title, ArrayList<String> artist) {
+	public CD(String title, Collection<Artist> artist) {
 		this.title = title;
 		this.artist = artist;
 	}
@@ -42,11 +50,11 @@ public class CD {
 		this.title = title;
 	}
 
-	public ArrayList<String> getName() {
+	public Collection<Artist> getName() {
 		return artist;
 	}
 
-	public void setName(ArrayList<String> artist) {
+	public void setName(Collection<Artist> artist) {
 		this.artist = artist;
 	}
 
