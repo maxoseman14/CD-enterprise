@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -18,6 +20,7 @@ public class CD {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	private Long id;
+	@Size(min=2, max=10)
 	private String title;
 	
 	@OneToMany(
@@ -25,6 +28,7 @@ public class CD {
 			orphanRemoval = true,
 			fetch = FetchType.EAGER
 			)
+	@Size(min=1)
 	private Collection<Artist> artist;
 	
 	public CD () {}
